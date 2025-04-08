@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "./AttendanceTable.css";
+import '../style/AttendanceTable.css';
 
 const AttendanceTable = () => {
   const [date, setDate] = useState(new Date());

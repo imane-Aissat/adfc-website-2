@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ShiftCard.css";
+import "../style/ShiftCard.css";
 import WeatherCard from "./WeatherCard"; // Import the WeatherCard component
 
 const ShiftCard = () => {
