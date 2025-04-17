@@ -1,0 +1,57 @@
+/* ShiftCard.css */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap');
+
+.shift-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    height: auto;
+    margin: 30px;  /* Add space from all sides */
+    text-align: left;  /* Align content to the right */
+    font-family: 'Lexend', sans-serif;
+}
+
+.time {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.insight {
+    font-size: 0.9rem;
+    color: gray;
+}
+
+.date-section {
+    margin-top: 15px;
+}
+
+.date-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.date {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.shift-button {
+    margin-top: 20px;
+    background: orange;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: right;
+    display: block;
+    width: 100%;
+}
+
+.shift-button:hover {
+    background: darkorange;
+}

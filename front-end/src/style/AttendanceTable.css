@@ -1,0 +1,83 @@
+.attendance-container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .calendar-btn, .absence-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .calendar-btn {
+    background-color: #f0f0f0;
+  }
+  
+  .absence-btn {
+    background-color: #ff9800;
+    color: white;
+  }
+  
+  .calendar-popup {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .attendance-table th, .attendance-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .attendance-table th {
+    background: #f9f9f9;
+  }
+  
+  .present {
+    color: #4caf50;
+    font-weight: bold;
+  }
+  
+  .absent {
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  .partial {
+    color: #ff9800;
+    font-weight: bold;
+  }
+  
