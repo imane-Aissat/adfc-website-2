@@ -6,18 +6,21 @@ import HRSidebar from "./components/HRSidebar";
 import AjoutEmployee from "./pages/HRDashboard/AjoutEmployee";
 import Evaluation from "./pages/HRDashboard/evaluation";
 import EmployeeRotation from "./pages/HRDashboard/EmployeeRotation";
+
+import SuperAdminNotificationPage from './pages/SuperAdminPages/SuperAdminNotificationPage';
 function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<HRDashboard />} />
-      <Route path="/ajout-employee" element={<AjoutEmployee />} />
-      <Route path="/evaluation" element={<Evaluation/>}/>
-      <Route path="/EmployeeRotation" element={<EmployeeRotation/>}/>
+      <Route path="/" element={<SuperAdminNotificationPage />} />
+   
+    { /*<Route path="/" element={<AjoutEmployee />} />*/}
+
+    
+      
     </Routes>
   </BrowserRouter>
   );
 }
 
 export default App;
-
