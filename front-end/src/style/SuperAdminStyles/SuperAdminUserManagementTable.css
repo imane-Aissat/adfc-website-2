@@ -1,0 +1,79 @@
+.SuperAdminUserManagementTable-container {
+    width: 95%;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+  }
+  
+  .SuperAdminUserManagementTable-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .SuperAdminUserManagementTable-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+  }
+  
+  .SuperAdminUserManagementTable-table th,
+  .SuperAdminUserManagementTable-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .SuperAdminUserManagementTable-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .SuperAdminUserManagementTable-btn {
+    padding: 6px 10px;
+    margin: 2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .SuperAdminUserManagementTable-btn.toggle {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .SuperAdminUserManagementTable-btn.delete {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .SuperAdminUserManagementTable-roleDropdown {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .active {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .inactive {
+    color: red;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    .SuperAdminUserManagementTable-table th,
+    .SuperAdminUserManagementTable-table td {
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    .SuperAdminUserManagementTable-title {
+      font-size: 18px;
+    }
+  }
+  

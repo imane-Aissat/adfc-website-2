@@ -9,12 +9,14 @@ import EmployeeRotation from "./pages/HRDashboard/EmployeeRotation";
 
 import SuperAdminNotificationPage from './pages/SuperAdminPages/SuperAdminNotificationPage';
 import SuperAdminPendingUsersPage from './pages/SuperAdminPages/SuperAdminPendingUsersPage';
+import SuperAdminUserManagementPage from './pages/SuperAdminPages/SuperAdminUserManagementPage';
+
 
 function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<SuperAdminPendingUsersPage />} />
+      <Route path="/" element={<SuperAdminUserManagementPage />} />
    
     { /*<Route path="/" element={<AjoutEmployee />} />*/}
 

@@ -34,7 +34,7 @@ function SuperAdminSideBar() {
             <li>
               <NavLink to="/shifts" className="superadmin-nav-link">
                 <FiLayout className="superadmin-nav-icon" />
-                <span>Acces Control</span>
+                <span>User Management</span>
               </NavLink>
             </li>
             
