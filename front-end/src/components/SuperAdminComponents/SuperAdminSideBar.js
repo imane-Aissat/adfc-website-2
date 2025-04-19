@@ -28,7 +28,7 @@ function SuperAdminSideBar() {
             <li>
               <NavLink to="/requests" className="superadmin-nav-link">
                 <FiMessageSquare className="superadmin-nav-icon" />
-                <span>User Managment</span>
+                <span>Pending Users</span>
               </NavLink>
             </li>
             <li>
