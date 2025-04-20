@@ -1,0 +1,175 @@
+/* Settings Page Styles */
+.settings-container {
+  padding: 30px;
+  max-width: 600px; /* Reduced from 800px for better focus */
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.settings-title {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 600;
+  text-align: center; /* Center the title */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.settings-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 400px; /* Constrain form width */
+  margin-left: auto;
+  margin-right: auto; /* Center the form fields */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+  text-align: left; /* Keep labels left-aligned */
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #ff7f00;
+}
+
+.profile-picture-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center profile picture */
+  margin-bottom: 30px;
+}
+
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid #eee;
+}
+
+.btn {
+  padding: 12px 25px;
+  background-color: #ff7f00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 30px auto 0; /* Center the button */
+}
+
+.btn:hover {
+  background-color: #e67300;
+}
+
+.password-fields {
+  padding: 0;
+  margin-top: 30px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 20px 15px;
+  }
+  
+  .settings-form {
+    padding: 20px;
+  }
+  
+
+}
+
+
+/* Add to existing CSS */
+
+.password-section {
+  width: 100%;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.password-section h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 20px;
+}
+
+.btn.save-btn {
+  background-color: #ff7f00;
+  flex: 1;
+}
+
+.btn.delete-btn {
+  background-color: #f8f9fa;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  flex: 1;
+}
+
+.btn.delete-btn:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn.delete-btn.confirm-mode {
+  background-color: #dc3545;
+  color: white;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .buttons-container {
+    flex-direction: column;
+  }
+  
+  .btn.save-btn,
+  .btn.delete-btn {
+    width: 100%;
+  }
+}
