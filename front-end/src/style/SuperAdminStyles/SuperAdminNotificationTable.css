@@ -1,0 +1,63 @@
+/* Wrapping container for responsive overflow */
+.SuperAdminNotificationTable-container {
+  width: 95%;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Enables scroll on small screens */
+}
+
+/* Responsive table container for horizontal scroll */
+.SuperAdminNotificationTable-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  min-width: 600px; /* Prevent shrinking too much */
+}
+
+.SuperAdminNotificationTable-title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.SuperAdminNotificationTable-table th,
+.SuperAdminNotificationTable-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.SuperAdminNotificationTable-table th {
+  background-color: #f4f4f4;
+}
+
+/* Action colors */
+.SuperAdminNotificationTable-login {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+.SuperAdminNotificationTable-logout {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.SuperAdminNotificationTable-signup {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Make text smaller on smaller screens */
+@media (max-width: 768px) {
+  .SuperAdminNotificationTable-table th,
+  .SuperAdminNotificationTable-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .SuperAdminNotificationTable-title {
+    font-size: 18px;
+  }
+}

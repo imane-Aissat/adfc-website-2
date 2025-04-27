@@ -1,11 +1,29 @@
 import React from "react";
 import ShiftCard from "./components/AttendanceTable";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HRDashboard from "./pages/HRDashboard/HRDashboard";
+import HRSidebar from "./components/HRSidebar";
+import AjoutEmployee from "./pages/HRDashboard/AjoutEmployee";
+import Evaluation from "./pages/HRDashboard/evaluation";
+import EmployeeRotation from "./pages/HRDashboard/EmployeeRotation";
+
+import SuperAdminNotificationPage from './pages/SuperAdminPages/SuperAdminNotificationPage';
+import SuperAdminPendingUsersPage from './pages/SuperAdminPages/SuperAdminPendingUsersPage';
+import SuperAdminUserManagementPage from './pages/SuperAdminPages/SuperAdminUserManagementPage';
+
 
 function App() {
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <ShiftCard />
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<SuperAdminUserManagementPage />} />
+   
+    { /*<Route path="/" element={<AjoutEmployee />} />*/}
+
+    
+      
+    </Routes>
+  </BrowserRouter>
   );
 }
 

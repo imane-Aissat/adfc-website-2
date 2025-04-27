@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../style/ShiftCard.css";
-import WeatherCard from "./WeatherCard"; // Import the WeatherCard component
+import WeatherCard from "./WeatherCard"; 
 
 const ShiftCard = () => {
     const [time, setTime] = useState(new Date());
