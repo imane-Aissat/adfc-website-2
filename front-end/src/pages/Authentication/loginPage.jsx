@@ -16,7 +16,7 @@ function LoginPage() {
                     <input type="text" className="signup-form-input-text" placeholder="Email" />
                     <input type="text" className="signup-form-input-text" placeholder="Mot de passe" />
                     
-                    <button id="create-account-button" type="submit">Se connecter</button>
+                    <button id="se-connecter-button" type="submit">Se connecter</button>
                 </form>
             </div>
         </div>

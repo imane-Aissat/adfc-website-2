@@ -1,5 +1,6 @@
 import React from "react";
 import '..//../style/signupPage.css';
+import { Link } from 'react-router-dom';
 
 function SignupPageTwo() {
     return(
@@ -17,7 +18,7 @@ function SignupPageTwo() {
                     <input type="text" className="signup-form-input-text" placeholder="Email" />
                     <input type="text" className="signup-form-input-text" placeholder="Mot de passe" />
                     <input type="text" className="signup-form-input-text" placeholder="Confirmer le mot de passe" />
-
+                    <span>Je possède déjà un compte <Link to="/login" id="se-connecter-signup">Se connecter</Link></span>
                     <button id="create-account-button" type="submit">Créer</button>
                 </form>
             </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import '../../style/signupPage.css';
 import RoleChoiceCard from "../../components/roleChoice";
+import { Link } from 'react-router-dom';
 
 function SignupPageOne() {
     return (
@@ -26,7 +27,7 @@ function SignupPageOne() {
                 </div>
                 <div className="white-button-signup">
                     <button id="continue-button-signup">
-                        <span id="continue-button-signup-text">CONTINUER</span>
+                        <Link to='/signup2' id="continue-button-signup-text">CONTINUER</Link>
                     </button>
                 </div>
             </div>

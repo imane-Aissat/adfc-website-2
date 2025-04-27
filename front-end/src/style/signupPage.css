@@ -70,6 +70,7 @@
     color: #F1650B;
     font-weight: bold;
     font-size: 18px;
+    text-decoration: none;
 }
 
 #orange-numbering-side-bar {
@@ -125,10 +126,30 @@
     height: 7vh;
     border: none;
     border-radius: 5px;
-    margin: 6vh;
+    margin: 2vh;
 }
 
 #create-account-button:hover {
     background-color: rgb(254, 126, 46);
     cursor: pointer;
+}
+
+#se-connecter-button {
+    background-color: #F1650B;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    width: 12vw;
+    height: 7vh;
+    border: none;
+    border-radius: 5px;
+    margin: 6vh;
+    margin-top: 10vh;
+}
+
+#se-connecter-signup {
+    margin-top: 5vh;
+    color: #F1650B;
+    font-weight: bold;
+    text-decoration: none;
 }
