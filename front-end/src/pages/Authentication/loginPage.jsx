@@ -1,5 +1,6 @@
 import React from "react";
 import '..//../style/signupPage.css';
+import { Link } from 'react-router-dom';
 
 function LoginPage() {
     return(
@@ -16,7 +17,7 @@ function LoginPage() {
                     <input type="text" className="signup-form-input-text" placeholder="Email" />
                     <input type="text" className="signup-form-input-text" placeholder="Mot de passe" />
                     
-                    <button id="se-connecter-button" type="submit">Se connecter</button>
+                    <Link to="/RoomsChefdeBase" id="se-connecter-button" type="submit">Se connecter</Link>
                 </form>
             </div>
         </div>
