@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap');
+
+.salah-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+  padding-bottom: 40px;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.salah-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 350px;
+  max-width: 90vw;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.salah-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.salah-close-btn {
+  font-size: 24px;
+  color: orange;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.salah-modal-body {
+  margin-top: 20px;
+}
+
+.salah-modal-body label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.salah-shift-select,
+.salah-modal-body textarea,
+.salah-modal-body input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.salah-modal-body textarea {
+  height: 100px;
+  resize: none;
+}
+
+.salah-modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.salah-annuler-btn,
+.salah-update-btn {
+  background: orange;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 48%;
+}
+
+.salah-annuler-btn {
+  background: #f44336;
+}
+
+.salah-update-btn {
+  background: #4caf50;
+}
+
+.salah-annuler-btn:hover,
+.salah-update-btn:hover {
+  opacity: 0.8;
+}

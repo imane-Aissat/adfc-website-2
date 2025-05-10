@@ -1,0 +1,51 @@
+.salah-request-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  width: 250px;
+  text-align: left;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.salah-status-label {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.salah-status-badge {
+  display: block;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.salah-status-badge.accepté {
+  background-color: #ccf5cc;
+  color: #23a623;
+}
+
+.salah-status-badge.en-attente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.salah-status-badge.rejeté {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.salah-details-btn {
+  background: orange;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.salah-details-btn:hover {
+  background: #ff9800;
+}

@@ -1,0 +1,63 @@
+.salah-calendar {
+  flex: 1;
+}
+
+.salah-next-month,
+.salah-prev-month {
+  background: orange;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+}
+
+.salah-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.salah-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.salah-calendar-day-name {
+  font-weight: bold;
+  text-align: center;
+}
+
+.salah-calendar-day {
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  min-height: 50px;
+  position: relative;
+  border: 1px solid #eee;
+  transition: background 0.3s;
+}
+
+.salah-calendar-day:hover {
+  background: #f9f9f9;
+}
+
+.salah-shift-status {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.salah-shift-status.travail {
+  background: #e0f0ff;
+  color: #0080ff;
+}
+
+.salah-shift-status.repos {
+  background: #e0ffe0;
+  color: #4caf50;
+}

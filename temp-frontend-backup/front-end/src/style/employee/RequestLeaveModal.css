@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap');
+
+.salah-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-family: 'Lexend', sans-serif;
+}
+
+.salah-modal-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 10px 20px;
+    width: 400px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.salah-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.salah-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.salah-modal-body label {
+    font-weight: bold;
+}
+
+.salah-modal-body input,
+.salah-modal-body select,
+.salah-modal-body textarea {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.salah-close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.salah-done-btn {
+    background: orange;
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}

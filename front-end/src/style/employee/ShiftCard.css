@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap');
+
+.salah-shift-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    text-align: left;
+    font-family: 'Lexend', sans-serif;
+}
+
+.salah-time {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.salah-insight {
+    font-size: 0.9rem;
+    color: gray;
+}
+
+.salah-date-section {
+    margin-top: 15px;
+}
+
+.salah-date-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.salah-date {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.salah-shift-button {
+    margin-top: 20px;
+    background: orange;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: right;
+    display: block;
+    width: 100%;
+}
+
+.salah-shift-button:hover {
+    background: darkorange;
+}

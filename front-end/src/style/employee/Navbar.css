@@ -1,0 +1,131 @@
+.salah-navbar {
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #eee;
+}
+
+.salah-navbar-logo img {
+  height: 45px;
+}
+
+.salah-navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.salah-nav-link {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.salah-nav-link:hover,
+.salah-nav-link.active {
+  background-color: #f57c00;
+  color: white;
+}
+
+.salah-navbar-search {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #f57c00;
+  border-radius: 8px;
+  padding: 5px 10px;
+  background-color: #fefefe;
+  flex-grow: 1;
+  max-width: 350px;
+  margin: 0 30px;
+}
+
+.salah-search-icon {
+  color: #888;
+  margin-right: 8px;
+}
+
+.salah-navbar-search input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  font-size: 14px;
+}
+
+.salah-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.salah-icon-button {
+  color: #f57c00;
+  font-size: 22px;
+}
+
+.salah-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #f57c00;
+  cursor: pointer;
+}
+
+.salah-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dropdown menu styles */
+.salah-dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #f57c00;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  z-index: 100;
+}
+
+.salah-dropdown-menu ul {
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+}
+
+.salah-dropdown-menu li {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.salah-dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.salah-dropdown-menu li a {
+  text-decoration: none;
+  color: #444;
+  display: block;
+}
+
+.salah-dropdown-menu li a:hover {
+  background-color: #f57c00;
+  color: white;
+}
