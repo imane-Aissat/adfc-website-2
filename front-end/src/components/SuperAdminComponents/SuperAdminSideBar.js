@@ -8,7 +8,7 @@ function SuperAdminSideBar() {
 
   const handleLogout = () => {
     console.log('Logging out...');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -32,7 +32,7 @@ function SuperAdminSideBar() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/shifts" className="superadmin-nav-link">
+              <NavLink to="/admin_dashboard" className="superadmin-nav-link">
                 <FiLayout className="superadmin-nav-icon" />
                 <span>User Management</span>
               </NavLink>

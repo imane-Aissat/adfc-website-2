@@ -1,5 +1,5 @@
 // Layout.jsx
-import Topbar from './Topbar';
+import Header from './ChefDepart/Header';
 import HRSidebar from './HRSidebar';
 
 const Layout = ({ children }) => {
@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
     <div className="dashboard-container">
       <HRSidebar />
       <div className="main-content">
-        <Topbar />
+        <Header />
         <div className="content-wrapper">
           {children}
         </div>

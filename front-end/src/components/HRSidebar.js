@@ -1,17 +1,26 @@
 import React from 'react';
-import '../style/HRSidebar.css';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import '../style/CDSidebar.css';
+import { FiLayout, FiLogOut, FiMessageSquare, FiSettings, FiUser } from 'react-icons/fi';
 
-function HRSidebar() {
+function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log('Logging out...');
+    navigate('/login');
+  };
+
   return (
     <aside className="sidebar">
-      <div className="logo">
-        <img src="/assets/adfc.jpg" alt="ADFC Logo" />
-      </div>
-      <nav className="sidebar-nav">
-        <ul>
-          <li>
-            <NavLink to="/" className="nav-link">Dashboard</NavLink>
+      <div className="sidebar-top">
+        <div className="logo">
+          <img src="/images/adfc-logo.png" alt="ADFC Logo" />
+        </div>
+        <nav className="sidebar-nav">
+          <ul>
+            <li>
+            <NavLink to="/hr-dashboard" className="nav-link">Dashboard</NavLink>
           </li>
           <li>
             <NavLink to="/puits" className="nav-link">Puits</NavLink>
@@ -25,10 +34,18 @@ function HRSidebar() {
           <li>
             <NavLink to="/prediction" className="nav-link">Prediction</NavLink>
           </li>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      </div>
+      
+      <div className="sidebar-bottom">
+        <button onClick={handleLogout} className="logout-btn">
+          <FiLogOut className="logout-icon" />
+          <span>Log Out</span>
+        </button>
+      </div>
     </aside>
   );
 }
 
-export default HRSidebar;
+export default Sidebar;

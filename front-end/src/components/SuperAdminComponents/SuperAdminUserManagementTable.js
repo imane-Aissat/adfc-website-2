@@ -1,29 +1,93 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../style/SuperAdminStyles/SuperAdminUserManagementTable.css';
 
 const SuperAdminUserManagementTable = () => {
-  const [users, setUsers] = useState([
-    { name: "Alice Johnson", email: "alice@example.com", role: "Operator", status: "Active", date: "2025-04-01" },
-    { name: "Bob Smith", email: "bob@example.com", role: "Supervisor", status: "Inactive", date: "2025-03-28" },
-    { name: "Charlie Brown", email: "charlie@example.com", role: "Operator", status: "Active", date: "2025-02-15" },
-  ]);
+  const [users, setUsers] = useState([]);
 
-  const handleDelete = (index) => {
-    const updatedUsers = [...users];
-    updatedUsers.splice(index, 1);
-    setUsers(updatedUsers);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/all-users");
+        const data = await response.json();
+        if (response.ok) {
+          setUsers(data);
+        } else {
+          console.error("Failed to fetch users:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleDelete = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/delete-user/${userId}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setUsers((prev) => prev.filter((user) => user.id !== userId));
+        alert(data.message || "User deleted.");
+      } else {
+        alert("Failed to delete user.");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
-  const toggleStatus = (index) => {
-    const updatedUsers = [...users];
-    updatedUsers[index].status = updatedUsers[index].status === "Active" ? "Inactive" : "Active";
-    setUsers(updatedUsers);
-  };
+  const toggleStatus = async (userId, currentStatus) => {
+  const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
+  try {
+    const response = await fetch(`http://localhost:5000/update-status/${userId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ statut_compte: newStatus }),
+    });
 
-  const handleRoleChange = (index, newRole) => {
-    const updatedUsers = [...users];
-    updatedUsers[index].role = newRole;
-    setUsers(updatedUsers);
+    if (response.ok) {
+      // ✅ Update UI immediately
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === userId ? { ...user, statut_compte: newStatus } : user
+        )
+      );
+    } else {
+      const errorData = await response.json();
+      console.error("Failed to update:", errorData);
+      alert("Failed to update status.");
+    }
+  } catch (error) {
+    console.error("Error updating status:", error);
+    alert("An error occurred while updating.");
+  }
+};
+
+
+
+  const handleRoleChange = async (userId, newRoleName) => {
+    try {
+      const response = await fetch(`http://localhost:5000/update-role/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role_name: newRoleName }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setUsers((prev) =>
+          prev.map((user) =>
+            user.id === userId ? { ...user, role_name: newRoleName } : user
+          )
+        );
+      } else {
+        alert("Failed to update role.");
+      }
+    } catch (error) {
+      console.error("Error updating role:", error);
+    }
   };
 
   return (
@@ -32,36 +96,37 @@ const SuperAdminUserManagementTable = () => {
       <table className="SuperAdminUserManagementTable-table">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
             <th>Email</th>
             <th>Role</th>
             <th>Status</th>
-            <th>Date Joined</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
-              <td>{user.name}</td>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.nom}</td>
+              <td>{user.prénom}</td>
               <td>{user.email}</td>
-              <td>
-                <select
-                  value={user.role}
-                  onChange={(e) => handleRoleChange(index, e.target.value)}
-                  className="SuperAdminUserManagementTable-roleDropdown"
-                >
-                  <option>Operator</option>
-                  <option>Supervisor</option>
-                </select>
+              <td>{user.role}</td>
+              <td className={user.statut_compte === "active" ? "active" : "inactive"}>
+                {user.statut_compte}
               </td>
-              <td className={user.status === "Active" ? "active" : "inactive"}>{user.status}</td>
-              <td>{user.date}</td>
               <td>
-                <button onClick={() => toggleStatus(index)} className="SuperAdminUserManagementTable-btn toggle">
-                  {user.status === "Active" ? "Deactivate" : "Activate"}
+                <button
+                  onClick={() => toggleStatus(user.id, user.statut_compte)}
+                  className="SuperAdminUserManagementTable-btn toggle"
+                >
+                  {user.statut_compte === "Active" ? "Deactivate" : "Activate"}
                 </button>
-                <button onClick={() => handleDelete(index)} className="SuperAdminUserManagementTable-btn delete">
+                <button
+                  onClick={() => handleDelete(user.id)}
+                  className="SuperAdminUserManagementTable-btn delete"
+                >
                   Delete
                 </button>
               </td>

@@ -1,0 +1,5 @@
+DB_HOST="aws-0-eu-central-1.pooler.supabase.com"
+DB_USER="postgres.muxyhvnubnoqmmgpdxwo"
+DB_PASSWORD="ADFC_project1"
+DB_NAME="postgres"
+DB_PORT="5432"
