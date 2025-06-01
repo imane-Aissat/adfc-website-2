@@ -1,0 +1,84 @@
+
+#form-divider-room{
+    background-color: #fce4ec;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20vh;
+}
+
+.reservation-form {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+  width: 360px;
+  position: relative;
+  width: 30vw;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #2f2f2f;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: orange;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: #333;
+}
+
+select,
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 8px 12px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 16px;
+}
+
+.confirm-button {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}

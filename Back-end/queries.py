@@ -31,13 +31,12 @@ def add_employee(employee_data):
     try:
         cur = get_db_cursor(conn)
 
-        # Validate required fields
+
         required_fields = ['nom', 'prenom', 'email', 'mot_de_passe', 'fonction']
         for field in required_fields:
             if not employee_data.get(field):
                 raise ValueError(f"Missing required field: {field}")
 
-        # Prepare data with type safety
         insert_data = {
             'nom': str(employee_data['nom']),
             'prenom': str(employee_data['prenom']),
@@ -49,7 +48,7 @@ def add_employee(employee_data):
             'id_equipe': int(employee_data['id_equipe']) if employee_data.get('id_equipe') else None
         }
 
-        # Execute insertion
+
         cur.execute("""
             INSERT INTO employee (
                 nom, prenom, email, mot_de_passe,
@@ -65,7 +64,6 @@ def add_employee(employee_data):
         return cur.fetchone()[0]
 
     except psycopg2.IntegrityError as e:
-        # Handle database constraints
         if "unique constraint" in str(e):
             raise ValueError("Email address already exists")
         elif "foreign key" in str(e):
@@ -82,23 +80,22 @@ def add_employee(employee_data):
         close_db_connection(conn, cur)
 
 def insert_user(nom, prenom, email, mot_de_passe, type_u_id, statut_compte='Inactive'):
-    # Check the length of each input field before inserting to ensure it's within the allowed limits
     max_lengths = {
-        'nom': 100,  # Example: maximum length for 'nom' column is 100 characters
-        'prenom': 100,  # Example: maximum length for 'prenom' column is 100 characters
-        'email': 100,  # Example: maximum length for 'email' column is 100 characters
-        'mot_de_passe': 255,  # Example: maximum length for 'mot_de_passe' column is 255 characters
-        'statut_compte': 50  # Example: maximum length for 'statut_compte' column is 50 characters
+        'nom': 100,  
+        'prenom': 100,  
+        'email': 100,  
+        'mot_de_passe': 255,  
+        'statut_compte': 50  
     }
 
-    # Trim input data and check lengths
+
     nom = nom.strip()[:max_lengths['nom']]
     prenom = prenom.strip()[:max_lengths['prenom']]
     email = email.strip()[:max_lengths['email']]
     mot_de_passe = mot_de_passe.strip()[:max_lengths['mot_de_passe']]
     statut_compte = statut_compte.strip()[:max_lengths['statut_compte']]
 
-    # Validate lengths
+
     if len(nom) > max_lengths['nom']:
         raise ValueError(f"Nom exceeds the maximum length of {max_lengths['nom']} characters.")
     if len(prenom) > max_lengths['prenom']:
@@ -110,10 +107,8 @@ def insert_user(nom, prenom, email, mot_de_passe, type_u_id, statut_compte='Inac
     if len(statut_compte) > max_lengths['statut_compte']:
         raise ValueError(f"Statut_compte exceeds the maximum length of {max_lengths['statut_compte']} characters.")
 
-    # Proceed with the insertion if all fields are valid
     conn = get_db_connection()
     try:
-        # Open a cursor and execute the query
         cur = get_db_cursor(conn)
         cur.execute(''' 
             INSERT INTO utilisateurs (nom, "prénom", email, mot_de_passe, type_u_id, statut_compte)
@@ -122,12 +117,12 @@ def insert_user(nom, prenom, email, mot_de_passe, type_u_id, statut_compte='Inac
         ''', (nom, prenom, email, mot_de_passe, type_u_id, statut_compte))
         
         utilisateur_id = cur.fetchone()[0]
-        conn.commit()  # Commit the transaction to save changes
+        conn.commit()
 
         return utilisateur_id
 
     except Exception as e:
-        conn.rollback()  # If an error occurs, rollback the transaction
+        conn.rollback()  
         raise RuntimeError(f"Database insertion failed: {str(e)}")
     
     finally:

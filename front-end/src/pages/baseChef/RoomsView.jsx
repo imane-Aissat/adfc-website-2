@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import '..//../style/Roomsview.css';
 import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -52,6 +52,37 @@ const rows = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 function ChambresCBase() {
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+    fetch("http://localhost:5000/api/rooms")
+        .then(response => response.json())
+        .then(data => {
+            const transformedRows = data.map(room => {
+                const residentsArray = room["Résidents"];  // This is ["imane", "razane"]
+                const residentsNames = residentsArray.join(', ');  // "imane, razane"
+
+                const currentResident = residentsArray.length > 0
+                    ? `${residentsArray[residentsArray.length - 1].prenom} ${residentsArray[residentsArray.length - 1].nom}`
+                    : "Aucun";
+
+                return {
+                    id: room.id,
+                    Chambres: room.Chambres,
+                    Résidents: residentsNames,
+                    "Résident Actuel": currentResident,
+                    Status: room.Status,
+                };
+            });
+
+            setRows(transformedRows);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.error("Error fetching room data:", error);
+        });
+        }, []);
     return <div id="chambres-view-chef-de-base">
         <div className="side-bar-space">
             <SidebarChefBase></SidebarChefBase>
@@ -72,19 +103,17 @@ function ChambresCBase() {
                         <DataGrid
                             rows={rows}
                             columns={columns}
-                            initialState={{ pagination: { paginationModel } }}
+                            loading={loading}
                             pageSizeOptions={[5, 10]}
-                            editMode="row"
                             checkboxSelection
-                            sx={
-                                { 
-                                    border: 0.5, 
-                                    borderColor: 'grey.light',
-                                    '& .MuiDataGrid-cell:hover': {
-                                        color: 'primary.main',
-                                    },
-                                }
-                            }
+                            editMode="row"
+                            sx={{
+                                border: 0.5,
+                                borderColor: 'grey.light',
+                                '& .MuiDataGrid-cell:hover': {
+                                    color: 'primary.main',
+                                },
+                            }}
                         />
                     </Paper>
                 </div>

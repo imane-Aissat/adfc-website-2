@@ -32,21 +32,9 @@ function SidebarChefBase() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/ReservationChambreF" className="nav-link">
-                <FiClipboard className="nav-icon" />
-                <span>Réserver une chambre</span>
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/ShiftDemandePage" className="nav-link">
                 <FiMessageSquare className="nav-icon" />
                 <span>Gérer les demandes</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/ShiftsViewPage" className="nav-link">
-                <FiGrid  className="nav-icon" />
-                <span>Shifts</span>
               </NavLink>
             </li>
             <li>

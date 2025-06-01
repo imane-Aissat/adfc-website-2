@@ -23,6 +23,7 @@ import SettingsPageCB from "./pages/baseChef/SettingsPageCB";
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <Routes>
         
@@ -36,8 +37,10 @@ function App() {
         <Route path="/ShiftsViewPage" element={<ShiftsPageCB />} />
         <Route path="/SettingsPageCB" element={<SettingsPageCB />} />
       </Routes>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
 export default App;
+

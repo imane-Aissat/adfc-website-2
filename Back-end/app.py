@@ -1,11 +1,17 @@
-# app.py
 from flask import Flask, jsonify, request
 from queries import *
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from flask_cors import CORS
 app = Flask(__name__)
+from flask import Blueprint, jsonify
+from routes.rooms import rooms_bp
 CORS(app)
+from routes.employees import employees_bp
+app.register_blueprint(employees_bp)
+
+app.register_blueprint(rooms_bp)
+
 
 @app.route('/api/employees')
 def employees():
@@ -121,7 +127,7 @@ def get_pending_users():
 @app.route('/accept-user/<int:user_id>', methods=['POST'])
 def accept_user_account(user_id):
     try:
-        accept_user(user_id)  # Update the user's status to 'actif'
+        accept_user(user_id) 
         return jsonify({"message": "User account has been activated."}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -129,7 +135,7 @@ def accept_user_account(user_id):
 @app.route('/delete-user/<int:user_id>', methods=['DELETE'])
 def delete_user_account(user_id):
     try:
-        delete_user(user_id)  # Delete the user from the database
+        delete_user(user_id) 
         return jsonify({"message": "User account has been deleted."}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
