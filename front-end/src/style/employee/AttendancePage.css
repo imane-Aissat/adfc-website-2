@@ -1,0 +1,26 @@
+.salah-attendance-page {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+}
+
+.salah-left-section {
+  flex: 0 0 300px;
+}
+
+.salah-right-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .salah-attendance-page {
+    flex-direction: column;
+  }
+
+  .salah-left-section, .salah-right-section {
+    flex: 1 0 100%;
+  }
+}
