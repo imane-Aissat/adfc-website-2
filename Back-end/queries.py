@@ -1,7 +1,7 @@
 import psycopg2
 from database import get_db_connection, get_db_cursor, close_db_connection
 
-def get_all_employees():
+def get_all_employees1():
     """Fetch all employees (excluding sensitive fields)"""
     conn = get_db_connection()
     try:
@@ -252,3 +252,46 @@ def delete_user(user_id):
             conn.commit()
     finally:
         conn.close()
+
+def add_shift_change_request(change_content, from_date, to_date, file_data, employee_id):
+    """Add a new shift change request to the database"""
+    conn = get_db_connection()
+    try:
+        cur = get_db_cursor(conn)
+        cur.execute("""
+            INSERT INTO public.shift_change 
+            (change_content, from_date, to_date, "File", fk_employee)
+            VALUES (%s, %s, %s, %s, %s)
+            RETURNING id_change
+        """, (change_content, from_date, to_date, file_data, employee_id))
+        
+        new_id = cur.fetchone()[0]
+        conn.commit()
+        return new_id
+    except psycopg2.Error as e:
+        conn.rollback()
+        raise RuntimeError(f"Database error: {e}")
+    finally:
+        close_db_connection(conn, cur)
+
+
+def add_absence_request(absence_content, absence_file, fk_employee_absence):
+    """Add a new absence request to the database"""
+    conn = get_db_connection()
+    try:
+        cur = get_db_cursor(conn)
+        cur.execute("""
+            INSERT INTO public.absence_form 
+            (absence_content, absence_file, fk_employee_absence)
+            VALUES (%s, %s, %s)
+            RETURNING id_absence
+        """, (absence_content, absence_file, fk_employee_absence))
+        
+        new_id = cur.fetchone()[0]
+        conn.commit()
+        return new_id
+    except psycopg2.Error as e:
+        conn.rollback()
+        raise RuntimeError(f"Database error: {e}")
+    finally:
+        close_db_connection(conn, cur)

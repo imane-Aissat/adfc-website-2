@@ -12,11 +12,10 @@ def get_all_employees():
         conn = get_db_connection()
         cur = get_db_cursor(conn)
 
-        # Get total count
         cur.execute('SELECT COUNT(*) FROM employee')
         total = cur.fetchone()[0]
         
-        # Get paginated employees - using only existing columns
+      
         offset = (page - 1) * per_page
         cur.execute('''
             SELECT

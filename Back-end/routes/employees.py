@@ -3,8 +3,8 @@ from database import get_db_connection, get_db_cursor, close_db_connection
 
 employees_bp = Blueprint('employees', __name__)
 
-@employees_bp.route('/api/employees', methods=['GET'])
-def get_all_employees():
+@employees_bp.route('/api/employees/CB', methods=['GET'])
+def get_all_employees_cb():
     conn = get_db_connection()
     try:
         cur = get_db_cursor(conn)

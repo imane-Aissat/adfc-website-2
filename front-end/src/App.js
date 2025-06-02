@@ -1,16 +1,13 @@
 import React from "react";
-import ShiftCard from "./components/AttendanceTable";
 import SignupPageOne from "./pages/Authentication/signuppage1"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HRDashboard from "./pages/HRDashboard/HRDashboard";
-import HRSidebar from "./components/HRSidebar";
+import RequestsPage from "./pages/CDRequestsPage";
 import AjoutEmployee from "./pages/HRDashboard/AjoutEmployee";
 import Evaluation from "./pages/HRDashboard/evaluation";
 import EmployeeRotation from "./pages/HRDashboard/EmployeeRotation";
-import Rigs from "./pages/HRDashboard/Rig_page";
-import RigEmployeesPage from "./pages/HRDashboard/RigEmployeePgae";
+import ShiftsPage from "./pages/CDShiftsPage";
 
-import SuperAdminNotificationPage from './pages/SuperAdminPages/SuperAdminNotificationPage';
 import SuperAdminPendingUsersPage from './pages/SuperAdminPages/SuperAdminPendingUsersPage';
 import SuperAdminUserManagementPage from './pages/SuperAdminPages/SuperAdminUserManagementPage';
 import SignupPageTwo from "./pages/Authentication/signuppage2";
@@ -21,27 +18,37 @@ import ReservationChambreForm from "./pages/baseChef/RoomsReservationForm";
 import ShiftDemandViewPage from "./pages/baseChef/ShiftsDemandView";
 import ShiftsPageCB from "./pages/baseChef/ShiftsViewPage";
 import SettingsPageCB from "./pages/baseChef/SettingsPageCB";
-
+import Rigs from "./pages/HRDashboard/Rig_page";
+import RigEmployeesPage from "./pages/HRDashboard/RigEmployeePgae";
+import EmployeesPage from "./pages/CDEmployeesPage";
+import SettingsPage from "./pages/CDSettingsPage";
 function App() {
   return (
     <BrowserRouter>
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <Routes>
         
-        <Route path="/" element={<SignupPageOne />} />
+        <Route path="/signup" element={<SignupPageOne />} />
         <Route path="/signup2" element={<SignupPageTwo />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/RoomsChefdeBase" element={<ChambresCBase />} />
         <Route path="/EmployeesCB" element={<EmployeesPageCB />} />
         <Route path="/ReservationChambreF" element={<ReservationChambreForm />} />
         <Route path="/ShiftDemandePage" element={<ShiftDemandViewPage />} />
         <Route path="/ShiftsViewPage" element={<ShiftsPageCB />} />
         <Route path="/SettingsPageCB" element={<SettingsPageCB />} />
+        <Route path="/admin_dashboard" element={<SuperAdminUserManagementPage/>}/>
+        <Route path="/admin_requests" element={<SuperAdminPendingUsersPage/>}/>
+         <Route path="/ajout-employee" element={<AjoutEmployee />} />
+        <Route path="/evaluation" element={<Evaluation/>}/>
         <Route path="/EmployeeRotation/:employeeId" element={<EmployeeRotation/>}/>
         <Route path="/puits" element={<Rigs/>}/>
         <Route path="/puits/:rigId/list_engineers" element={<RigEmployeesPage/>}/>
         <Route path="/hr-dashboard" element={<HRDashboard />} />
-        <Route path="/ajout-employee" element={<AjoutEmployee />} />
+        <Route path="/employees" element={<EmployeesPage />} />
+        <Route path="/shifts" element={<ShiftsPage/>} />
+        <Route path="/requests" element={<RequestsPage/>} />
+       <Route path="/settings" element={<SettingsPage/>} />
       </Routes>
       </div>
     </BrowserRouter>

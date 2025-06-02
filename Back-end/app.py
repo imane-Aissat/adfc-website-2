@@ -28,7 +28,7 @@ app.register_blueprint(allemployees_bp)
 app.register_blueprint(rooms_bp)
 app.register_blueprint(genetic_bp)
 
-@app.route('/api/employees')
+@app.route('/api/list-employees')
 def employees():
     return jsonify(get_all_employees())
 
@@ -185,3 +185,178 @@ def update_status(user_id):
 if __name__ == '__main__':
     app.run()
     freeze_support()
+
+
+@app.route('/api/shift-change', methods=['POST'])
+def submit_shift_change():
+    try:
+        # Validate required fields
+        if not request.form.get('reason'):
+            return jsonify({"error": "Le champ 'raison' est requis"}), 400
+        
+        if not request.form.get('from_date') or not request.form.get('to_date'):
+            return jsonify({"error": "Les dates de début et fin sont requises"}), 400
+
+        # Parse dates with validation
+        try:
+            from_date = datetime.strptime(request.form['from_date'], '%Y-%m-%d').date()
+            to_date = datetime.strptime(request.form['to_date'], '%Y-%m-%d').date()
+        except ValueError as e:
+            return jsonify({
+                "error": "Format de date invalide",
+                "details": "Utilisez le format AAAA-MM-JJ (ex: 2025-06-15)"
+            }), 400
+
+        if from_date > to_date:
+            return jsonify({
+                "error": "Dates invalides",
+                "details": "La date de fin doit être après la date de début"
+            }), 400
+
+        # File validation
+        file_data = None
+        if 'file' in request.files:
+            file = request.files['file']
+            if file.filename != '':
+                # Validate file size
+                if file.content_length > 5 * 1024 * 1024:  # 5MB
+                    return jsonify({
+                        "error": "Fichier trop volumineux",
+                        "details": "La taille maximale est de 5MB"
+                    }), 400
+                
+                # Validate file type
+                allowed_types = {
+                    'application/pdf': '.pdf',
+                    'image/jpeg': ['.jpg', '.jpeg'],
+                    'image/png': '.png'
+                }
+                if file.mimetype not in allowed_types:
+                    return jsonify({
+                        "error": "Type de fichier non supporté",
+                        "details": "Types acceptés: PDF, JPG, PNG"
+                    }), 400
+
+                file_data = file.read()
+
+        # Get employee ID (default to 601 as per your requirement)
+        employee_id = request.form.get('employee_id', 601)
+
+        # Insert into database
+        new_id = add_shift_change_request(
+            change_content=request.form['reason'],
+            from_date=from_date,
+            to_date=to_date,
+            file_data=file_data,
+            employee_id=employee_id
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "Demande enregistrée avec succès",
+            "request_id": new_id
+        }), 201
+
+    except psycopg2.Error as e:
+        app.logger.error(f"Database error: {str(e)}")
+        return jsonify({
+            "error": "Erreur de base de données",
+            "details": str(e)
+        }), 500
+        
+    except Exception as e:
+        app.logger.error(f"Unexpected error: {str(e)}")
+        return jsonify({
+            "error": "Erreur inattendue",
+            "details": str(e)
+        }), 500 
+
+
+# Add this to your existing app.py
+@app.route('/api/absence-request', methods=['POST'])
+def submit_absence_request():
+    try:
+        # Get form data
+        absence_content = request.form.get('reason')
+        fk_employee_absence = request.form.get('employee_id', 601)  # Default to 601 as per your note
+        
+        # Handle file upload if exists
+        absence_file = None
+        if 'file' in request.files:
+            file = request.files['file']
+            if file.filename != '':
+                absence_file = file.read()  
+        
+
+        new_id = add_absence_request(absence_content, absence_file, fk_employee_absence)
+        return jsonify({"message": "Absence request submitted successfully", "id": new_id}), 201
+        
+    except ValueError as ve:
+        return jsonify({"error": str(ve)}), 400
+    except RuntimeError as re:
+        return jsonify({"error": str(re)}), 500
+    
+@app.route('/api/rigs', methods=['GET'])
+def get_rigs():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT puit_id, code_puit, nom_puit, interval, date_debut, date_fin FROM puit")
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        rigs = []
+        for row in rows:
+            rigs.append({
+                "puit_id": row[0],
+                "code_puit": row[1],
+                "nom_puit": row[2],
+                "interval": row[3],
+                "date_debut": row[4].isoformat() if row[4] else '',
+                "date_fin": row[5].isoformat() if row[5] else ''
+            })
+        return jsonify(rigs), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/add-rig', methods=['POST'])
+def add_rig():
+    data = request.get_json()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO puit (puit_id, code_puit, nom_puit, interval, date_debut, date_fin) VALUES (%s, %s, %s, %s, %s, %s)",
+            (
+                int(data['id']),
+                data['rig'],
+                data['name'],
+                int(data['interval']),
+                data['dateIn'],
+                data['relieveDate']
+            )
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({"message": "Puits ajouté avec succès."}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+@app.route('/api/delete-employee/<int:id_employee>', methods=['DELETE','OPTIONS'])
+def delete_employee(id_employee):
+    if request.method == 'OPTIONS':
+        return '', 200 
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM employee WHERE id_employee = %s", (id_employee,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({"message": "Employé supprimé avec succès."}), 200
+    except Exception as e:
+        return jsonify({"error": f"Erreur lors de la suppression: {str(e)}"}), 500

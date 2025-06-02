@@ -18,7 +18,7 @@ const EmployeesPageCB = () => {
   ];
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/employees')
+    fetch('http://localhost:5000/api/employees/CB')
       .then(response => response.json())
       .then(data => {
         setRows(data);

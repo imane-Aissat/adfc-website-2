@@ -20,13 +20,13 @@ function Navbar() {
       {/* Liens de page */}
       <div className="salah-navbar-links">
         <NavLink
-          to="/"
+          to="/employee_attendance"
           className={({ isActive }) => `salah-nav-link ${isActive ? 'active' : ''}`}
         >
           Présence
         </NavLink>
         <NavLink
-          to="/shift"
+          to="/employee_shift"
           className={({ isActive }) => `salah-nav-link ${isActive ? 'active' : ''}`}
         >
           Poste
@@ -41,7 +41,7 @@ function Navbar() {
 
       {/* Icônes à droite */}
       <div className="salah-navbar-right">
-        <NavLink to="/notification" className="salah-icon-button">
+        <NavLink to="/employee_notification" className="salah-icon-button">
           <FiBell className="salah-notification-icon" />
         </NavLink>
 
