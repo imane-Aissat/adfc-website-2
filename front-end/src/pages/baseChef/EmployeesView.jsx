@@ -28,7 +28,7 @@ const EmployeesPageCB = () => {
       });
   }, []);
 
-  // Filter rows based on searchTerm in employee name (case-insensitive)
+
   const filteredRows = rows.filter(row =>
     row.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -50,7 +50,7 @@ const EmployeesPageCB = () => {
             <input
               id='research-employee-employee-view-CB'
               type="text"
-              placeholder="Enter Employee Name"
+              placeholder="Rechercher par employé"
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />

@@ -8,6 +8,10 @@ from flask import Blueprint, jsonify
 from routes.rooms import rooms_bp
 CORS(app)
 from routes.employees import employees_bp
+from routes.shiftsChange import shifts_demand_bp
+
+app.register_blueprint(shifts_demand_bp)
+
 app.register_blueprint(employees_bp)
 
 app.register_blueprint(rooms_bp)

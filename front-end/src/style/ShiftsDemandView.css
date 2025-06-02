@@ -3,12 +3,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     column-gap: 10vh;
-    row-gap:5vh;
+    row-gap: 5vh;
     padding: 20px;
     margin: 10vh 0 10vh 0;
+    align-items: start;
 }
 
-#demandes-view-chef-de-base{
+#demandes-view-chef-de-base {
     display: flex;
     flex-direction: row;
 }

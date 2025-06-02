@@ -1,4 +1,4 @@
-/* ShiftCard.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap');
 
 .shift-card {
@@ -8,8 +8,8 @@
     padding: 20px;
     width: 300px;
     height: auto;
-    margin: 30px;  /* Add space from all sides */
-    text-align: left;  /* Align content to the right */
+    margin: 30px; 
+    text-align: left; 
     font-family: 'Lexend', sans-serif;
 }
 
