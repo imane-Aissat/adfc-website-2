@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import '../../style/signupPage.css';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 function LoginPage() {
     const [email, setEmail] = useState("");
     const [motDePasse, setMotDePasse] = useState("");
@@ -47,6 +47,8 @@ function LoginPage() {
                 navigate("/hr-dashboard");
             } else if (roleName === "Employé") {
                 navigate("/employee");
+            }else if (roleName === "Chef d'epartement") {
+                navigate("/employees");
             } else {
                 navigate("/"); // default for other roles
             }
@@ -84,6 +86,7 @@ function LoginPage() {
                         onChange={(e) => setMotDePasse(e.target.value)}
                     />
                     {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <span>Vous ne possédez pas de compte ? <Link to="/signup" id="se-connecter-signup">Créer un compte</Link></span>
                     <button id="se-connecter-button" type="submit">Se connecter</button>
                 </form>
             </div>

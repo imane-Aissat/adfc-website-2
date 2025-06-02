@@ -2,7 +2,7 @@
 // pages/SignupPageTwo.js
 import React, { useEffect, useState } from "react";
 import '../../style/signupPage.css';
-import { Link } from 'react-router-dom';
+
 
 function SignupPageTwo() {
     const [role, setRole] = useState("");
@@ -19,7 +19,6 @@ function SignupPageTwo() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Collect form data
   const form = e.target;
   const formData = new FormData(form);
   const dataToSend = Object.fromEntries(formData.entries());
@@ -27,25 +26,24 @@ const handleSubmit = async (e) => {
   try {
     const response = await fetch("http://localhost:5000/signup", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dataToSend),
+      headers: {
+        "Content-Type": "application/json",  // MUST be set
+      },
+      body: JSON.stringify(dataToSend),      // Must send JSON string
     });
 
     if (response.ok) {
-      // Clear localStorage
-      localStorage.removeItem("selectedRole");
-
-      // Redirect to login
       window.location.href = "/login";
     } else {
       const error = await response.json();
-      alert("Signup failed: " + (error.message || "Unknown error"));
+      alert("Signup failed: " + (error.error || "Unknown error"));
     }
   } catch (err) {
-    console.error("Signup error:", err);
     alert("Something went wrong during signup.");
+    console.error(err);
   }
 };
+
 
     return (
         <div className="signup-page">
@@ -56,7 +54,7 @@ const handleSubmit = async (e) => {
                 <div id="saisie-infos-signup-box">
                     <span id="saisie-infos-signup">2. Saisissez vos informations</span>
                 </div>
-                <form
+                    <form
                     id="signup-form"
                     method="POST"
                     action="http://localhost:5000/signup"
@@ -70,7 +68,7 @@ const handleSubmit = async (e) => {
 
                     <input type="hidden" name="role" value={role} />
 
-                    <span>Je possède déjà un compte <Link to="/login" id="se-connecter-signup">Se connecter</Link></span>
+                    
                     <button id="create-account-button" type="submit">Créer</button>
                 </form>
             </div>

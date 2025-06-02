@@ -100,7 +100,6 @@ const RigTable = () => {
               <th>Interval</th>
               <th>Date in</th>
               <th>Relieve date</th>
-              <th>Engineers</th>
             </tr>
           </thead>
           <tbody>
@@ -112,11 +111,6 @@ const RigTable = () => {
                 <td>{rig.interval}</td>
                 <td>{rig.date_debut}</td>
                 <td>{rig.date_fin}</td>
-                <td>
-                  <Link to={`/puits/${rig.puit_id}/list_engineers`} className="voir-plus-link">
-                    voit plus
-                  </Link>
-                </td>
               </tr>
             ))}
           </tbody>
