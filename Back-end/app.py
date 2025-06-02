@@ -8,14 +8,19 @@ from flask import Blueprint, jsonify
 from routes.rooms import rooms_bp
 CORS(app)
 from routes.employees import employees_bp
-from routes.geneticroute import genetic_bp
+from routes.allemployees import allemployees_bp
 
+from routes.geneticroute import genetic_bp
 from genetic import run_genetic_algorithm
 from multiprocessing import freeze_support
-
 import json
 import numpy as np
-app.register_blueprint(employees_bp)
+
+from routes.CDsettings_route import settings_bp
+
+
+app.register_blueprint(settings_bp)
+app.register_blueprint(allemployees_bp)
 app.register_blueprint(rooms_bp)
 app.register_blueprint(genetic_bp)
 
