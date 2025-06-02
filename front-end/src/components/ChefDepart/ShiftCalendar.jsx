@@ -1,122 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../style/ShiftCalendar.css';
-
-const sampleData = [
-  {
-    name: "HAMMOUDA Bouran",
-    role: "Opératrice L1",
-    team: "Équipe A",
-    shifts: [
-      { date: 1, status: "normal" },
-      { date: 2, status: "normal" },
-      { date: 3, status: "leave", label: "Congé" },
-      { date: 4, status: "normal" },
-      { date: 5, status: "normal" },
-      { date: 6, status: "normal" },
-      { date: 7, status: "normal" },
-      { date: 15, status: "normal" },
-      { date: 16, status: "leave", label: "Congé" },
-      { date: 20, status: "normal" },
-      { date: 21, status: "normal" }
-    ]
-  },
-  {
-    name: "Achour Mohammed madani",
-    role: "Opérateur L1",
-    team: "Équipe B",
-    shifts: [
-      { date: 1, status: "absent", label: "Absent" },
-      { date: 2, status: "normal" },
-      { date: 3, status: "leave", label: "Congé" },
-      { date: 4, status: "normal" },
-      { date: 5, status: "normal" },
-      { date: 6, status: "normal" },
-      { date: 7, status: "normal" },
-      { date: 14, status: "normal" },
-      { date: 15, status: "normal" },
-      { date: 22, status: "leave", label: "Congé" }
-    ]
-  },
-  {
-    name: "HAMMOUDA Bouran",
-    role: "Opérateur L2",
-    team: "Équipe A",
-    shifts: [
-      { date: 2, status: "normal" },
-      { date: 3, status: "normal" },
-      { date: 4, status: "normal" },
-      { date: 5, status: "leave", label: "Congé" },
-      { date: 6, status: "normal" },
-      { date: 7, status: "normal" },
-      { date: 8, status: "normal" },
-      { date: 12, status: "normal" },
-      { date: 13, status: "normal" },
-      { date: 19, status: "leave", label: "Congé" }
-    ]
-  },
-  {
-    name: "HAMMOUDA Bouran",
-    role: "Superviseur",
-    team: "Équipe B",
-    shifts: [
-      { date: 1, status: "normal" },
-      { date: 2, status: "normal" },
-      { date: 3, status: "normal" },
-      { date: 4, status: "leave", label: "Congé" },
-      { date: 5, status: "normal" },
-      { date: 6, status: "normal" },
-      { date: 7, status: "normal" },
-      { date: 11, status: "normal" },
-      { date: 12, status: "normal" },
-      { date: 18, status: "leave", label: "Congé" }
-    ]
-  },
-  {
-    name: "HAMMOUDA Bouran",
-    role: "Opérateur L1",
-    team: "Équipe A",
-    shifts: [
-      { date: 1, status: "normal" },
-      { date: 2, status: "normal" },
-      { date: 3, status: "normal" },
-      { date: 4, status: "normal" },
-      { date: 5, status: "leave", label: "Congé" },
-      { date: 6, status: "normal" },
-      { date: 7, status: "normal" },
-      { date: 10, status: "normal" },
-      { date: 11, status: "normal" },
-      { date: 17, status: "leave", label: "Congé" }
-    ]
-  },
-  {
-    name: "HAMMOUDA Bouran",
-    role: "Opérateur L2",
-    team: "Équipe B",
-    shifts: [
-      { date: 1, status: "normal" },
-      { date: 2, status: "normal" },
-      { date: 3, status: "normal" },
-      { date: 4, status: "normal" },
-      { date: 5, status: "normal" },
-      { date: 6, status: "leave", label: "Congé" },
-      { date: 7, status: "normal" },
-      { date: 9, status: "normal" },
-      { date: 10, status: "normal" },
-      { date: 16, status: "leave", label: "Congé" }
-    ]
-  }
-];
+import axios from 'axios';
 
 const daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
 const ShiftCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [scheduleData, setScheduleData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch schedule data on mount
+  useEffect(() => {
+    fetchSchedule();
+  }, []);
+
+  const fetchSchedule = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post('/api/genetic');
+      if (response.data.success) {
+        setScheduleData(response.data.schedule.employees);
+        setError(null);
+      } else {
+        setError(response.data.error || 'Échec de la génération de l\'horaire');
+      }
+    } catch (err) {
+      setError(err.message || 'Erreur lors de la récupération des données');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const changeMonth = (direction) => {
-    setCurrentDate(prevDate => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(prevDate.getMonth() + direction);
-      return newDate;
+    setCurrentDate((prev) => {
+      const updated = new Date(prev);
+      updated.setMonth(prev.getMonth() + direction);
+      return updated;
     });
   };
 
@@ -132,29 +52,33 @@ const ShiftCalendar = () => {
     return new Date(year, month, 1).getDay();
   };
 
+  const getDayIndex = (date) => {
+    const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const diff = Math.floor((date - start) / (1000 * 60 * 60 * 24));
+    return diff + 1; // Day index from 1 to 63
+  };
+
   const getShiftForDate = (employee, date) => {
-    return employee.shifts.find(shift => shift.date === date);
+    const dayIndex = getDayIndex(date);
+    return employee.shifts.find((shift) => shift.date === dayIndex);
   };
 
   const renderCalendarHeader = () => {
     const daysInMonth = getDaysInMonth();
     const firstDay = getFirstDayOfMonth();
-    
-    // Adjust for Monday as first day of week (French convention)
     const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1;
-    
+
     return (
       <thead>
         <tr>
           <th className="employee-header">Employé</th>
           <th className="employee-header">Rôle/Équipe</th>
           {Array.from({ length: daysInMonth }, (_, i) => {
-            const date = i + 1;
             const dayOfWeek = daysOfWeek[(adjustedFirstDay + i) % 7];
             return (
-              <th key={date} className="day-header">
+              <th key={i} className="day-header">
                 <div className="day-name">{dayOfWeek}</div>
-                <div className="day-number">{date}</div>
+                <div className="day-number">{i + 1}</div>
               </th>
             );
           })}
@@ -164,10 +88,30 @@ const ShiftCalendar = () => {
   };
 
   const renderEmployeeRows = () => {
+    if (loading) {
+      return (
+        <tr>
+          <td colSpan={getDaysInMonth() + 2} className="loading-cell">
+            Chargement en cours...
+          </td>
+        </tr>
+      );
+    }
+
+    if (error) {
+      return (
+        <tr>
+          <td colSpan={getDaysInMonth() + 2} className="error-cell">
+            Erreur: {error}
+          </td>
+        </tr>
+      );
+    }
+
     const daysInMonth = getDaysInMonth();
-    
-    return sampleData.map((employee, index) => (
-      <tr key={index} className="employee-row">
+
+    return scheduleData.map((employee, empIndex) => (
+      <tr key={empIndex} className="employee-row">
         <td className="employee-cell">
           <div className="employee-name">{employee.name}</div>
         </td>
@@ -176,13 +120,17 @@ const ShiftCalendar = () => {
           <div className="employee-team">{employee.team}</div>
         </td>
         {Array.from({ length: daysInMonth }, (_, i) => {
-          const date = i + 1;
+          const date = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            i + 1
+          );
           const shift = getShiftForDate(employee, date);
-          
+
           return (
-            <td key={date} className="shift-cell">
+            <td key={i} className="shift-cell">
               {shift ? (
-                <div className={`shift-status ${shift.status}`} title={shift.label || 'Sur site'}>
+                <div className={`shift-status ${shift.status}`} title={`Salle ${shift.room}`}>
                   {shift.status === 'normal' && 'S'}
                   {shift.status === 'leave' && 'C'}
                   {shift.status === 'absent' && 'A'}
@@ -197,28 +145,44 @@ const ShiftCalendar = () => {
     ));
   };
 
-  const renderLegend = () => {
-    return (
-      <div className="legend-container">
-        <div className="legend-title">Légende:</div>
-        <div className="legend-item">
-          <span className="legend-color normal"></span>
-          <span>S = Sur site</span>
-        </div>
-        <div className="legend-item">
-          <span className="legend-color leave"></span>
-          <span>C = Congé</span>
-        </div>
-        <div className="legend-item">
-          <span className="legend-color absent"></span>
-          <span>A = Absent</span>
-        </div>
-        <div className="legend-item">
-          <span className="legend-color empty"></span>
-          <span>- = Non programmé</span>
-        </div>
+  const renderLegend = () => (
+    <div className="legend-container">
+      <div className="legend-title">Légende:</div>
+      <div className="legend-item">
+        <span className="legend-color normal"></span>
+        <span>S = Sur site (hover pour voir la salle)</span>
       </div>
-    );
+      <div className="legend-item">
+        <span className="legend-color leave"></span>
+        <span>C = Congé</span>
+      </div>
+      <div className="legend-item">
+        <span className="legend-color absent"></span>
+        <span>A = Absent</span>
+      </div>
+      <div className="legend-item">
+        <span className="legend-color empty"></span>
+        <span>- = Non programmé</span>
+      </div>
+    </div>
+  );
+
+  const handleGenerateSchedule = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post('http://localhost:5000/api/run-algo');
+      console.log('Horaire généré:', response.data);
+      if (response.data.success) {
+        setScheduleData(response.data.schedule.employees);
+        setError(null);
+      } else {
+        setError(response.data.error || 'Échec de la génération');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -230,6 +194,9 @@ const ShiftCalendar = () => {
           <h3>{currentDate.toLocaleString('fr-FR', { month: 'long', year: 'numeric' })}</h3>
           <button onClick={() => changeMonth(1)}>Suivant</button>
         </div>
+        <button className="generate-btn" onClick={handleGenerateSchedule}>
+          Générer un nouvel horaire
+        </button>
       </div>
 
       {renderLegend()}
@@ -237,9 +204,7 @@ const ShiftCalendar = () => {
       <div className="calendar-table-container">
         <table className="calendar-table">
           {renderCalendarHeader()}
-          <tbody>
-            {renderEmployeeRows()}
-          </tbody>
+          <tbody>{renderEmployeeRows()}</tbody>
         </table>
       </div>
     </div>
