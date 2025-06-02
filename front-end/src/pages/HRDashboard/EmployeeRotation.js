@@ -3,9 +3,10 @@ import { ChevronLeft, ChevronRight } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import '../../style/EmployeeRotation.css';
-
+import ShiftCalendar from '../../components/ChefDepart/ShiftCalendar';
 const EmployeeRotation = ({ employeeId }) => {
   const initialEmployeeData = {
+
     id: 1,
     name: "Ahmed Rashdan",
     position: "Director Sales",
@@ -18,9 +19,7 @@ const EmployeeRotation = ({ employeeId }) => {
 
   return (
     <Layout>
-      <EmployeeRotationComponent 
-        employeeData={initialEmployeeData}
-      />
+      <ShiftCalendar></ShiftCalendar>
     </Layout>
   );
 };

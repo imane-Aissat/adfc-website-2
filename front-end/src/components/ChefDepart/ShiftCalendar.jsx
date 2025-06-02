@@ -10,7 +10,6 @@ const ShiftCalendar = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch schedule data on mount
   useEffect(() => {
     fetchSchedule();
   }, []);
@@ -71,8 +70,8 @@ const ShiftCalendar = () => {
     return (
       <thead>
         <tr>
-          <th className="employee-header">Employé</th>
-          <th className="employee-header">Rôle/Équipe</th>
+          <th className="-header"></th>
+          <th className="-header"></th>
           {Array.from({ length: daysInMonth }, (_, i) => {
             const dayOfWeek = daysOfWeek[(adjustedFirstDay + i) % 7];
             return (
@@ -130,7 +129,7 @@ const ShiftCalendar = () => {
           return (
             <td key={i} className="shift-cell">
               {shift ? (
-                <div className={`shift-status ${shift.status}`} title={`Salle ${shift.room}`}>
+                <div className={`shift-status ${shift.status}`} title={`Puit ${shift.room}`}>
                   {shift.status === 'normal' && 'S'}
                   {shift.status === 'leave' && 'C'}
                   {shift.status === 'absent' && 'A'}

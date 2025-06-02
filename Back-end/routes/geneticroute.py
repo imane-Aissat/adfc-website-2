@@ -11,35 +11,33 @@ def convert_schedule_to_json(schedule_chromosome):
     
     for emp_index in range(schedule.shape[0]):
         try:
-            # Get employee info from dataframe
             emp_info = employees_df.iloc[emp_index]
             
-            # Determine primary team
             team_ids = schedule[emp_index, :, 0]
             unique_teams = np.unique(team_ids[team_ids > 0])
             team_id = int(unique_teams[0]) if len(unique_teams) > 0 else 0
             
             employee_data = {
-                'name': f"{emp_info['Firstname']} {emp_info['Lastname']}",  # Changed from Prénom/Nom to Firstname/Lastname
+                'name': f"{emp_info['Firstname']} {emp_info['Lastname']}",  
                 'role': emp_info['Fonction'],
                 'team': f"Équipe {team_id}" if team_id > 0 else "Non assigné",
                 'shifts': []
             }
             
-            # Process all days
+
             for day in range(DAYS_IN_CYCLE):
                 team, shift, room = map(int, schedule[emp_index, day])
                 
                 shift_data = {
-                    'date': day + 1,  # 1-based index
+                    'date': day + 1,  
                     'room': int(room) if room > 0 else 0
                 }
                 
-                if shift == 1:  # Working day
+                if shift == 1:  
                     shift_data['status'] = 'normal'
-                elif team == 0 and shift == 0 and room == 0:  # Off day
+                elif team == 0 and shift == 0 and room == 0:  
                     shift_data['status'] = 'leave'
-                else:  # Other cases
+                else:
                     shift_data['status'] = 'absent'
                 
                 employee_data['shifts'].append(shift_data)
@@ -98,7 +96,6 @@ def genetic_api():
             raise ValueError("Genetic algorithm returned None")
         
         print("[DEBUG] Converting to frontend format...")
-        # Use the unified conversion function
         frontend_data = convert_schedule_to_json(best_schedule)
         
         print("[DEBUG] Returning genetic API response.")

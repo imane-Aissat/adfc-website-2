@@ -7,6 +7,8 @@ import HRSidebar from "./components/HRSidebar";
 import AjoutEmployee from "./pages/HRDashboard/AjoutEmployee";
 import Evaluation from "./pages/HRDashboard/evaluation";
 import EmployeeRotation from "./pages/HRDashboard/EmployeeRotation";
+import Rigs from "./pages/HRDashboard/Rig_page";
+import RigEmployeesPage from "./pages/HRDashboard/RigEmployeePgae";
 
 import SuperAdminNotificationPage from './pages/SuperAdminPages/SuperAdminNotificationPage';
 import SuperAdminPendingUsersPage from './pages/SuperAdminPages/SuperAdminPendingUsersPage';
@@ -19,7 +21,6 @@ import ReservationChambreForm from "./pages/baseChef/RoomsReservationForm";
 import ShiftDemandViewPage from "./pages/baseChef/ShiftsDemandView";
 import ShiftsPageCB from "./pages/baseChef/ShiftsViewPage";
 import SettingsPageCB from "./pages/baseChef/SettingsPageCB";
-
 
 function App() {
   return (
@@ -36,6 +37,11 @@ function App() {
         <Route path="/ShiftDemandePage" element={<ShiftDemandViewPage />} />
         <Route path="/ShiftsViewPage" element={<ShiftsPageCB />} />
         <Route path="/SettingsPageCB" element={<SettingsPageCB />} />
+        <Route path="/EmployeeRotation/:employeeId" element={<EmployeeRotation/>}/>
+        <Route path="/puits" element={<Rigs/>}/>
+        <Route path="/puits/:rigId/list_engineers" element={<RigEmployeesPage/>}/>
+        <Route path="/hr-dashboard" element={<HRDashboard />} />
+        <Route path="/ajout-employee" element={<AjoutEmployee />} />
       </Routes>
       </div>
     </BrowserRouter>

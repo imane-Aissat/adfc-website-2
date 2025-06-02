@@ -1,15 +1,13 @@
 /* HRDashboard.css */
 
-/* Layout */
 .dashboard-container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     font-family: 'Segoe UI', sans-serif;
     background-color: #f5f6fa;
     color: #333;
-  }
-  
-  /* Sidebar */
+    position: relative;
+}
   
   
   
@@ -20,11 +18,42 @@
   
   /* Main Content */
   .main-content {
-    flex-grow: 1;
-    padding: 30px;
-    overflow-y: auto;
+    position: absolute;
+  top: 100px;    /* Navbar height (60px) + 10px gap */
+  left: 230px;  /* Sidebar width (220px) + 10px gap */
+  right: 10px;  /* 10px gap from viewport right */
+  bottom: 10px; /* 10px gap from viewport bottom */
+  overflow-y: auto;
+  background-color: #f5f6fa;
+  z-index: 1;
+  padding: 10px; /* Internal spacing */
+  border-radius: 8px; 
+  }
+  @media (max-width: 992px) {
+  .main-content {
+    top: 200px; 
+    left: 10px; /* Full width with 10px gap */
   }
   
+  .adfc-navbar {
+    left: 0; /* Full width */
+    padding: 0 10px; /* Internal spacing */
+  }
+  
+  .sidebar {
+    transform: translateX(-100%); /* Hide sidebar */
+  }
+  
+  .sidebar.active {
+    transform: translateX(0); /* Show when toggled */
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    top: 60px; /* Reduced gap on smaller screens */
+  }
+}
   .main-header {
     display: flex;
     justify-content: flex-end;
@@ -504,4 +533,41 @@
 
 .modal-buttons button:hover {
   background-color: #e57700;
+}
+
+/* Add to your HRDashboard.css */
+.navigation-links {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #3498db;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.rig-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.shifts-page-HR-view {
+  margin-top: 15vh;
+  margin-left: 15vw;
 }

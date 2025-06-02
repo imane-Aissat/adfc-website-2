@@ -20,19 +20,13 @@ function Sidebar() {
         <nav className="sidebar-nav">
           <ul>
             <li>
-            <NavLink to="/hr-dashboard" className="nav-link">Dashboard</NavLink>
+            <NavLink to="/hr-dashboard" className="nav-link">Shifts</NavLink>
           </li>
           <li>
             <NavLink to="/puits" className="nav-link">Puits</NavLink>
           </li>
           <li>
             <NavLink to="/ajout-employee" className="nav-link">Ajout Employée</NavLink>
-          </li>
-          <li>
-            <NavLink to="/evaluation" className="nav-link">Evaluation</NavLink>
-          </li>
-          <li>
-            <NavLink to="/prediction" className="nav-link">Prediction</NavLink>
           </li>
           </ul>
         </nav>
