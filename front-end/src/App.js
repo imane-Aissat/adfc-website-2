@@ -7,6 +7,9 @@ import AjoutEmployee from "./pages/HRDashboard/AjoutEmployee";
 import Evaluation from "./pages/HRDashboard/evaluation";
 import EmployeeRotation from "./pages/HRDashboard/EmployeeRotation";
 import ShiftsPage from "./pages/CDShiftsPage";
+import ShiftPage from "./pages/employee/ShiftPage";
+import AttendancePage from "./pages/employee/AttendancePage";
+import RequestPage from "./pages/employee/RequestPage";
 
 import SuperAdminPendingUsersPage from './pages/SuperAdminPages/SuperAdminPendingUsersPage';
 import SuperAdminUserManagementPage from './pages/SuperAdminPages/SuperAdminUserManagementPage';
@@ -49,6 +52,9 @@ function App() {
         <Route path="/shifts" element={<ShiftsPage/>} />
         <Route path="/requests" element={<RequestsPage/>} />
        <Route path="/settings" element={<SettingsPage/>} />
+       <Route path="/employee_attendance " element={<AttendancePage />} />
+        <Route path="/employee_shift" element={<ShiftPage />} />
+        <Route path="/employee_notification" element={<RequestPage />} />
       </Routes>
       </div>
     </BrowserRouter>

@@ -30,7 +30,7 @@ app.register_blueprint(genetic_bp)
 
 @app.route('/api/list-employees')
 def employees():
-    return jsonify(get_all_employees())
+    return jsonify(get_all_employees1())
 
 @app.route('/api/employees', methods=['POST'])
 def create_employee():
