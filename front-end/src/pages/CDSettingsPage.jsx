@@ -1,25 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiUser, FiMail, FiLock, FiCamera, FiTrash2 } from 'react-icons/fi';
 import '../style/CDSettingsPage.css';
 
 function SettingsPage() {
   const [formData, setFormData] = useState({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    firstName: '',
+    lastName: '',
+    email: '',
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   });
-
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  
   const [profilePicture, setProfilePicture] = useState('/images/default-profile.jpg');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  // Fetch chef de département profile on component mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/settings/chef-departement');
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch profile');
+        }
+        
+        setFormData({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
+        
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handlePictureChange = (e) => {
@@ -32,28 +63,89 @@ function SettingsPage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your save logic here
-    console.log('Form submitted:', formData);
-    alert('Profile updated successfully!');
+    setError(null);
+    setSuccess(null);
+    
+    try {
+      // Validate passwords match if changing password
+      if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
+        throw new Error('New passwords do not match');
+      }
+      
+      const response = await fetch('http://localhost:5000/api/settings/chef-departement', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          currentPassword: formData.currentPassword,
+          newPassword: formData.newPassword
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to update profile');
+      }
+      
+      setSuccess('Profile updated successfully');
+      // Clear password fields
+      setFormData(prev => ({
+        ...prev,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      }));
+      
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  const handleDeleteAccount = () => {
+  const handleDeleteAccount = async () => {
     if (!showDeleteConfirm) {
       setShowDeleteConfirm(true);
       return;
     }
     
-    // Add your account deletion logic here
-    console.log('Account deletion confirmed');
-    alert('Account has been permanently deleted');
-    // Redirect to login or home page after deletion
+    try {
+      const response = await fetch('/api/settings/chef-http://localhost:5000/api/settings/chef-departement', {
+        method: 'DELETE'
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to delete account');
+      }
+      
+      // Redirect to login or home page after deletion
+      window.location.href = '/login';
+      
+    } catch (err) {
+      setError(err.message);
+      setShowDeleteConfirm(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="settings-container">
+        <div className="loading-spinner">Loading profile...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="settings-container">
       <h1 className="settings-title">Profile Settings</h1>
+      
+      {error && <div className="alert alert-error">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
       
       <form className="settings-form" onSubmit={handleSubmit}>
         <div className="profile-picture-container">
@@ -72,28 +164,43 @@ function SettingsPage() {
 
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="name"><FiUser style={{ marginRight: '5px' }} />Full Name</label>
+            <label htmlFor="firstName"><FiUser style={{ marginRight: '5px' }} />First Name</label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="firstName"
+              name="firstName"
               className="form-control"
-              value={formData.name}
+              value={formData.firstName}
               onChange={handleChange}
+              required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email"><FiMail style={{ marginRight: '5px' }} />Email</label>
+            <label htmlFor="lastName"><FiUser style={{ marginRight: '5px' }} />Last Name</label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="text"
+              id="lastName"
+              name="lastName"
               className="form-control"
-              value={formData.email}
+              value={formData.lastName}
               onChange={handleChange}
+              required
             />
           </div>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="email"><FiMail style={{ marginRight: '5px' }} />Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className="form-control"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="password-section">
@@ -108,6 +215,7 @@ function SettingsPage() {
                 className="form-control"
                 value={formData.currentPassword}
                 onChange={handleChange}
+                placeholder="Required for password changes"
               />
             </div>
 
@@ -120,6 +228,7 @@ function SettingsPage() {
                 className="form-control"
                 value={formData.newPassword}
                 onChange={handleChange}
+                placeholder="Leave blank to keep current"
               />
             </div>
 
@@ -132,6 +241,7 @@ function SettingsPage() {
                 className="form-control"
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                placeholder="Required if changing password"
               />
             </div>
           </div>
